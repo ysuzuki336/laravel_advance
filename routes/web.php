@@ -32,6 +32,8 @@ Route::group(['prefix' => 'user/{id}'], function(){
     Route::get('followers', 'UsersController@followers')->name('followers');
 });
 
+Route::resource('rest','RestappController', ['only' => ['index', 'show', 'create', 'store', 'destroy']]);
+
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('movies', 'MoviesController', ['only' => ['create', 'store', 'destroy']]);
 });
@@ -46,7 +48,8 @@ Route::group(['middleware' => 'auth'], function(){
        Route::delete('unfollow', 'UserFollowController@destroy')->name('unfollow');
     });
     
-    Route::resource('movies', 'MoviesController', ['only' => ['create', 'store', 'destroy']]);
+Route::resource('movies', 'MoviesController', ['only' => ['create', 'store', 'destroy']]);
 });
+
 
 
