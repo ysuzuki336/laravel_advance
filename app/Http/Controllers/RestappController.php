@@ -17,13 +17,17 @@ class RestappController extends Controller
     public function index()
     {
         $users = User::all();
-        return response()->json(
-            [
+        return $this->jsonResponse(
+        [
                 'users' => $users,
-            ],
-            200,[],
-            JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
-        );
+        ]);
+        // return response()->json(
+        //     [
+        //         'users' => $users,
+        //     ],
+        //     200,[],
+        //     JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
+        // );
     }
 
     /**
@@ -51,25 +55,22 @@ class RestappController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request,[
             'url' => 'required|max:11',
             'comment' => 'max:36',
         ]);
-        
+
         User::find(1)->movies()->create([
             'url' => $request->url,
-            'commet' => $request->comment,
+            'comment' => $request->comment,
         ]);
-        
+
         $movies = User::find(1)->movies;
         
-        return response()->json(
-            [
-                'movies' => $movies
-            ],
-            200,[],
-            JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
-        );
+        return $this->jsonResponse(
+        [
+                'movies' => $movies,
+        ]);
     }
 
     /**
@@ -82,13 +83,17 @@ class RestappController extends Controller
     {
         $user = User::find($id);
         $movies = $user->movies;
-        return response()->json(
+        return $this->jsonResponse(
             [
                 'user' => $user,
-            ],
-            200,[],
-            JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
-        );
+            ]);
+        // return response()->json(
+        //     [
+        //         'user' => $user,
+        //     ],
+        //     200,[],
+        //     JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
+        // );
     }
 
     /**
@@ -131,12 +136,17 @@ class RestappController extends Controller
         
         $movies = $user->movies;
         
-                return response()->json(
+               return $this->jsonResponse(
             [
-                'movies' => $movies
-            ],
-            200,[],
-            JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
-        );
+                'movies' => $movies,
+            ]);
+        
+        //         return response()->json(
+        //     [
+        //         'movies' => $movies
+        //     ],
+        //     200,[],
+        //     JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
+        // );
     }
 }

@@ -13,6 +13,7 @@
                 $key_name = config('app.key_name');
                 $get_api_url = "https://www.googleapis.com/youtube/v3/videos?id=$movie->url&key=$key_name&part=snippet";
                 $json = file_get_contents($get_api_url);
+                $json = mb_convert_encoding($json, "utf8", 'UTF-8');
     
                 if($json){
                     $getData = json_decode( $json , true);
